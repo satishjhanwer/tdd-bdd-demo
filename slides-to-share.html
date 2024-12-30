@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session on Coding Standards, TDD & BDD, and Web Performance Optimization</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/simple.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+
+  <style>
+    .demo-logo {
+      height: 180px;
+      margin: 0 auto 4rem auto;
+      background: transparent;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .ul-font {
+      font-size: 28px;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    .tdd-image {
+      margin: 0 !important;
+      max-height: 720px !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-transition="concave">
+        <h4><b>Holistic Engineers Excellence Program</b></h4>
+        <h4>Coding Standards, TDD & BDD, and Web Performance Optimization</h4>
+        <br />
+        <p><small>Presented by <a href="https://github.com/satishjhanwer">Satish Jhanwer</a></small></p>
+      </section>
+      <section data-transition="concave">
+        <h2>Topics Overview</h2>
+        <ul>
+          <li class="fragment fade-in-then-semi-out">Coding Standards and Guidelines</li>
+          <li class="fragment fade-in-then-semi-out">Test-Driven and Behavior-Driven Development (TDD & BDD)</li>
+          <li class="fragment fade-in-then-semi-out">Web Performance Optimization</li>
+        </ul>
+      </section>
+      <section data-transition="concave">
+        <section data-auto-animation>
+          <h2>Coding Standards and Guidelines</h2>
+          <ul>
+            <li>Consistent Code Style</li>
+            <li>Improves Code Readability and Maintainability</li>
+            <li>Common Guidelines: Naming Conventions, Commenting, Error Handling</li>
+          </ul>
+        </section>
+        <section data-auto-animation>
+          <h2>Naming Conventions</h2>
+          <p>Using descriptive, consistent names for variables, functions, and classes so that their purpose is
+            immediately clear</p>
+        </section>
+        <section data-auto-animation>
+          <h2>Consistent Commenting</h2>
+          <p>Adding comments where necessary to explain complex logic or important details. This helps future developers
+            understand the context and reasoning behind certain code decisions.</p>
+        </section>
+        <section data-auto-animation>
+          <h2>Code Formatting</h2>
+          <p>Following rules around indentation, spacing, and line length to ensure uniformity across files, which
+            reduces cognitive load when navigating code.</p>
+        </section>
+      </section>
+      <section data-transition="concave">
+        <section data-auto-animation>
+          <h2>Introduction to TDD & BDD</h2>
+          <ul>
+            <li><strong>TDD</strong>: Write tests first, build code to pass tests, then refactor.</li>
+            <li><strong>BDD</strong>: Emphasizes behavior with scenarios and collaboration.</li>
+          </ul>
+        </section>
+        <section data-auto-animation>
+          <h2>TDD Process</h2>
+          <p>A simple cycle as <strong>Red → Green → Refactor</strong></p>
+          <ul>
+            <li><strong>Red</strong>: Write a test for a new feature. Initially, this test will fail.</li>
+            <li><strong>Green</strong>: Write just enough code to make the test pass.</li>
+            <li><strong>Refactor</strong>: Clean up the code, making it more efficient or easier to maintain.</li>
+          </ul>
+        </section>
+        <section data-auto-animation>
+          <img class="tdd-image" src="./tdd-process.png" alt="Red-Green-Refactor Cycle" />
+        </section>
+        <section data-auto-animation>
+          <h2>Counter Component (Goal State)</h2>
+          <pre data-id="code-animation">
+            <code class="hljs jsx" data-trim data-line-numbers>
+              <script type="text/template">
+                import React, { useState } from 'react';
+  
+                export const Counter: React.FC = () => {
+                  const [count, setCount] = useState(0);
+                  const increment = () => setCount(count + 1);
+  
+                  return (
+                    <div>
+                      <p>Count: {count}</p>
+                      <button onClick={increment}>Increment</button>
+                    </div>
+                  );
+                };
+              </script>
+            </code>
+          </pre>
+        </section>
+        <section data-auto-animation>
+          <h2>Write the Test (Red State)</h2>
+          <pre data-id="code-animation">
+            <code class="hljs jsx" data-trim data-line-numbers>
+              <script type="text/template">
+                import { render, fireEvent } from "@testing-library/react";
+                import { screen } from '@testing-library/dom';
+                import Counter from './Counter';
+  
+                test('renders counter and increments value', () => {
+                  render(<Counter />);
+                  const countElement = screen.getByText(/count:/i);
+                  expect(countElement).toHaveTextContent('Count: 0');
+                  const buttonElement = screen.getByRole('button', { 
+                    name: /increment/i 
+                  });
+                  fireEvent.click(buttonElement);
+                  expect(countElement).toHaveTextContent('Count: 1')
+                });
+              </script>
+            </code>
+          </pre>
+        </section>
+        <section data-auto-animation>
+          <h2>Write Just Enough Code to Pass the Test (Green State)</h2>
+          <pre data-id="code-animation">
+            <code class="hljs jsx" data-trim data-line-numbers>
+              <script type="text/template">
+                import React, { useState } from 'react';
+  
+                export const Counter: React.FC = () => {
+                  const [count, setCount] = useState(0);
+                  const increment = () => setCount(count + 1);
+  
+                  return (
+                    <div>
+                      <p>Count: {count}</p>
+                      <button onClick={increment}>Increment</button>
+                    </div>
+                  );
+                };
+              </script>
+            </code>
+          </pre>
+        </section>
+        <section data-auto-animation>
+          <h2>Refactor (Refactor State)</h2>
+          <p>After refactoring done, we re-run the tests to ensure everything still works correctly.</p>
+        </section>
+        <section data-auto-animation>
+          <h2>BDD Process</h2>
+          <p>BDD focuses on behavior using scenarios often written in Gherkin syntax:</p>
+          <ul>
+            <li>Given some context</li>
+            <li>When an action is taken</li>
+            <li>Then a specific outcome is expected</li>
+            <li>Adds additional conditions or details to the scenario</li>
+          </ul>
+        </section>
+        <section data-auto-animation>
+          <img height="450px" src="./bdd-process.png" alt="BDD Process" />
+        </section>
+        <section data-auto-animation>
+          <h2>Gherkin Syntax</h2>
+          <p>Gherkin is the language used to write BDD scenarios in a structured format that is easy to read and
+            understand by all team members.
+          </p>
+          <ul>
+            <li><strong>Given</strong> Given some context or setup</li>
+            <li><strong>When</strong> When an action is taken or event triggered</li>
+            <li><strong>Then</strong> Then a specific outcome is expected</li>
+            <li><strong>And/But</strong> Adds additional conditions or details to the scenario</li>
+          </ul>
+        </section>
+        <section data-markdown data-auto-animation>
+          <script type="text/template">
+            ## Example Gherkin scenario:
+            ### Feature: Todo app
+            - Scenario: Adding a new todo item
+            - Given the user is on the Todo app homepage
+            - When the user enters "Buy milk" into the input field and clicks "Add Todo"
+            - Then the todo list should contain "Buy milk"
+          </script>
+        </section>
+        <section data-auto-animation>
+          <h2>Best Practices for TDD & BDD</h2>
+          <ul>
+            <li class="fragment fade-in-then-semi-out">Clear, concise test cases</li>
+            <li class="fragment fade-in-then-semi-out">Tests should be independent</li>
+            <li class="fragment fade-in-then-semi-out">Descriptive names for tests</li>
+            <li class="fragment fade-in-then-semi-out">Refactor tests regularly</li>
+          </ul>
+        </section>
+      </section>
+      <section data-transition="concave">
+        <section data-auto-animation>
+          <h2>Web Performance Optimization</h2>
+          <p>Strategies to enhance loading times and user experience:</p>
+          <ul>
+            <li>Minify CSS, JS, and HTML</li>
+            <li>Lazy load images and scripts</li>
+            <li>Use efficient caching strategies</li>
+            <li>Optimize asset delivery with CDNs</li>
+          </ul>
+        </section>
+        <section data-auto-animation>
+          <h2>Minifying Assets</h2>
+          <ul>
+            <li>Minification is the process of removing unnecessary characters (like spaces, comments, and line breaks)
+              from code files (JavaScript, CSS, and HTML) to reduce their size without changing the functionality.</li>
+            <li>Minifying assets reduces the amount of data that needs to be transferred over the network. Smaller file
+              sizes lead to faster download times, improving the <strong>page load speed</strong>.</li>
+            <li>This is particularly important for mobile users, where bandwidth can be limited.</li>
+          </ul>
+        </section>
+        <section data-auto-animation>
+          <h2>Example:</h2>
+          <pre data-id="code-animation">
+            <code class="hljs javascript" data-trim data-line-numbers>
+              <script type="text/template">
+                // Original Code
+                function sayHello() {
+                  console.log("Hello, World!");
+                }
+
+                // Minified Code
+                function sayHello(){console.log("Hello, World!");}
+              </script>
+            </code>
+          </pre>
+        </section>
+        <section data-auto-animation>
+          <h2>Content Delivery Networks(CDN)</h2>
+          <ul class="ul-font">
+            <li>A CDN is a network of distributed servers that store copies of your website's static assets (such as
+              images, JavaScript, and CSS files) in multiple geographic locations. When a user requests a resource, the
+              CDN serves it from the server closest to the user, reducing the latency and speed of content delivery.
+            </li>
+            <li>By distributing assets to edge servers around the world, the CDN minimizes the physical distance between
+              users and content. This reduces latency and improves load times, especially for users located far from
+              your primary server.</li>
+            <li>CDNs offload traffic from the origin server, helping to handle spikes in demand without overwhelming the
+              server. This improves the overall scalability of your website.</li>
+          </ul>
+        </section>
+        <section data-auto-animation>
+          <h2>Other Techniques to Improve Web Performance</h2>
+          <ul>
+            <li><strong>Image Optimization</strong>: ImageOptim, TinyPNG, WebP</li>
+            <li><strong>Lazy Loading</strong></li>
+            <li><strong>Code Splitting</strong></li>
+            <li><strong>Caching</strong></li>
+            <li><strong>Load Times and User Experience</strong></li>
+            <li><strong>Improved Mobile Performance</strong></li>
+            <li><strong>Better SEO Rankings</strong></li>
+          </ul>
+        </section>
+      </section>
+      <section class="center">
+        <h1>Q&A</h1>
+      </section>
+      <section data-background-transition="zoom" class="left">
+        <h1>THE END</h1>
+        <p><small>Thanks for staying awake! You've been an awesome audience—let's do this again sometime!</small></p>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/zoom/zoom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/search/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+    });
+  </script>
+</body>
+
+</html>
