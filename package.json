@@ -12,10 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "resolutions": {
-    "@babel/runtime": "^7.27.0",
-    "brace-expansion": "^2.0.2"
-  },
+  "resolutions": {},
   "dependencies": {
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
